@@ -1,0 +1,26 @@
+<!-- application-list.component.html -->
+<div class="toolbar">
+  <a routerLink="new" class="btn">Nueva Aplicación</a>
+  <input placeholder="Departamento" [(ngModel)]="department" />
+  <input type="number" placeholder="Owner ID" [(ngModel)]="ownerId" />
+  <button (click)="load()">Filtrar</button>
+</div>
+
+<table class="app-table">
+  <thead>
+    <tr>
+      <th>Nombre</th><th>Depto</th><th>Owner</th><th>Versión</th><th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let a of apps">
+      <td><a [routerLink]="[a.id]">{{ a.name }}</a></td>
+      <td>{{ a.department }}</td>
+      <td>{{ a.ownerName }}</td>
+      <td>{{ a.version }}</td>
+      <td>
+        <button (click)="remove(a)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
