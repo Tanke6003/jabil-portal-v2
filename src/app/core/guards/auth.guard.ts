@@ -23,26 +23,28 @@ export class AuthGuard implements CanActivate {
     return new Promise(async (resolve,reject)=>{
       
       const token = await GetToken(this._loadConfigService.getConfig().tokenName);
+      console.log(token.exp)
     if(token.exp == undefined){
       this.router.navigate(['/login'])
       reject(false)
     }
-    this.guardService.AuthRoute(route).subscribe({next:(res:any)=>{
-      SetToken(this._loadConfigService.getConfig().tokenName,res.Token)
+    resolve(true);
+    // this.guardService.AuthRoute(route).subscribe({next:(res:any)=>{
+    //   SetToken(this._loadConfigService.getConfig().tokenName,res.Token)
       
-      if(res && res.Result == true){
-        resolve(true)
-      }
-      else{
-        this.router.navigate(['/'])
-        reject(false)
-      }
-    },error:(err)=>{
-      this.messageService.add({severity:'warn',summary:'Warning',detail:err.error,key:'tr'});
-      console.error(err)
-      reject(false)
-      this.router.navigate(['/'])
-      }});
+    //   if(res && res.Result == true){
+    //     resolve(true)
+    //   }
+    //   else{
+    //     this.router.navigate(['/'])
+    //     reject(false)
+    //   }
+    // },error:(err)=>{
+    //   this.messageService.add({severity:'warn',summary:'Warning',detail:err.error,key:'tr'});
+    //   console.error(err)
+    //   reject(false)
+    //   this.router.navigate(['/'])
+    //   }});
     })
     
   }

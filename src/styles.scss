@@ -920,3 +920,19 @@ div.filter-o{
     padding: .2rem;
   }
 }
+.status.Cerrado {
+  background-color: #dc3545;
+  color: white;
+}
+
+.status {
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  border-radius: 20px;
+  text-transform: capitalize;
+}
+
+.status.Abierto {
+  background-color: #28a745;
+  color: white;
+}

@@ -16,26 +16,24 @@
           {{ application.available ? ('Available'|translate) : ('Unavailable'|translate) }}
         </span>
       </span>
+      <span>{{ 'Support Email:' | translate }} {{ application.supportEmail  }}</span>
+      <span>{{ 'SME Email:' | translate }} {{ application.smeEmail }}</span>
+      <span>{{ 'Database Server:' | translate }} {{ application.dbServer }}</span>
+      <span>{{ 'Repository:' | translate }} {{ application.repository }}</span>
+      <span>{{ 'Server:' | translate }} {{ application.server }}</span>
     </div>
   </div>
 
   <section class="tickets-section">
     <h2>{{ 'Tickets' | translate }}</h2>
     <div class="tickets-grid">
-      <div *ngFor="let tk of tickets" class="ticket-card">
+      <div *ngFor="let tk of tickets" class="ticket-card" (click)="goToTicketDetails(tk)">
         <div class="ticket-header">
           <h3>{{ tk.title }}</h3>
-          <span class="ticket-status">{{ tk.status }}</span>
+          <span class="status" [ngClass]="tk.status">{{ tk.status }}</span>
         </div>
         <p class="ticket-desc">{{ tk.description }}</p>
-        <div class="comments">
-          <h4>{{ 'Comments' | translate }}</h4>
-          <div *ngFor="let c of commentsMap[tk.id]" class="comment-item">
-            <strong>{{ c.authorName }}:</strong>
-            <span>{{ c.comment }}</span>
-            <small>{{ c.createdAt | date:'short' }}</small>
-          </div>
-        </div>
+
       </div>
     </div>
   </section>

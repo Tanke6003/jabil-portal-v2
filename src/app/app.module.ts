@@ -22,6 +22,7 @@ import { RegisterComponent } from './content/pages/auth/register/register.compon
 import { ApplicationDetailComponent } from './content/pages/application-detail/application-detail.component';
 import { ApplicationFormComponent } from './content/pages/application-form/application-form.component';
 import { MyTicketsComponent } from './content/pages/my-tickets/my-tickets.component';
+import { TicketComponent } from './content/pages/ticket/ticket.component';
 
 
 
@@ -42,6 +43,7 @@ export function initializeApp(loadConfigService: LoadConfigService) {
     ApplicationDetailComponent,
     ApplicationFormComponent,
     MyTicketsComponent,
+    TicketComponent,
  
 
   ],

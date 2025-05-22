@@ -25,7 +25,7 @@ const routes: Routes = [
     component: MasterPageComponent,
     loadChildren: () =>
       import('./content/master-page/master-page.module').then((m) => m.MasterPageModule),
-    //canActivate: [AuthGuard], // Habilitado si es necesario
+    canActivate: [AuthGuard], // Habilitado si es necesario
   },
   {
     path:'login',

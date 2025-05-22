@@ -1,5 +1,5 @@
 {
-    "apiUrl":"http://localhost:5038/",
+    "apiUrl":"http://localhost:5000/api/",
     "version":"1.0.0",
     "supportEmail":"_24c9b0@Jabil.com",
     "environment":"Staging",

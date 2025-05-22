@@ -18,7 +18,7 @@ export class TikectService {
   let params = new HttpParams();
 
   if (appId != null) {
-    params = params.set('applicationId', appId.toString());
+    params = params.set('appId', appId.toString());
   }
   if (status) {
     params = params.set('status', status);
@@ -32,4 +32,25 @@ export class TikectService {
   saveTicket(data:any){
     return this._http.post<any>(`${this._loadConfigService.getConfig().apiUrl}tickets`,data);
    }
+   getMyTikects(userId:number){
+    return this._http.get<any>(`${this._loadConfigService.getConfig().apiUrl}tickets/my-tickets?userId=${userId}`);
+   }
+   getTicket(id:number) {
+
+  return this._http.get<any>(
+    `${this._loadConfigService.getConfig().apiUrl}tickets/${id}`
+  );
+}
+
+   addComment(data:any,id:number){
+    return this._http.post<any>(`${this._loadConfigService.getConfig().apiUrl}tickets/${id}/comments`,data);
+   }
+    getComments(id:number){
+    return this._http.get<any>(`${this._loadConfigService.getConfig().apiUrl}tickets/${id}/comments`);
+   }
+    closeTicket(id:number){
+      let data ={"status":"Cerrado"}
+    return this._http.put<any>(`${this._loadConfigService.getConfig().apiUrl}tickets/${id}/status`,data,);
+   }
+
 }

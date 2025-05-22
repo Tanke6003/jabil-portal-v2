@@ -54,6 +54,10 @@ goToEdit(){
     this.router.navigate([`application/${this.id}`]);
 
 }
+   goToTicketDetails(ticket: any): void {
+    this.router.navigate([`/ticket/${ticket.id}`]);  // Redirigir a la ruta del ticket
+  }
+
 
 
   async ngOnInit() {
@@ -70,6 +74,7 @@ goToEdit(){
       this.appSvc.GetApplication(id).subscribe({
         next: (app) => {
           this.application = app;
+          console.log(this.application)
           resolve();
         },
         error: (err) => {

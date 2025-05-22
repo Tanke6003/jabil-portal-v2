@@ -1,1 +1,27 @@
-<p>my-tickets works!</p>
+<div class="my-tickets-container mt-2">
+  <h1>Mis Tickets</h1>
+
+  <!-- Mostrar "Cargando..." si los tickets están siendo cargados -->
+  <div *ngIf="isLoading" class="loading">
+    <p>Loading...</p>
+  </div>
+
+  <!-- Mostrar los tickets solo si hay alguno -->
+  <div *ngIf="!isLoading && tickets.length === 0" class="no-tickets">
+    <p>No hay tickets disponibles.</p>
+  </div>
+
+  <!-- Mostrar los tickets si están disponibles -->
+  <div *ngIf="!isLoading && tickets.length > 0" class="tickets-list">
+    <div class="ticket-card" *ngFor="let ticket of tickets" (click)="goToTicketDetails(ticket)">
+      <div class="ticket-header">
+        <h3>{{ ticket.title }}</h3>
+        <span class="status" [ngClass]="ticket.status">{{ ticket.status }}</span>
+      </div>
+      <p><strong>Description:</strong> {{ ticket.description }}</p>
+      <p><strong>Created By:</strong> {{ getUserNameByUserId(ticket.createdById) }}</p>
+      <p><strong>Assigned To:</strong> {{ getUserNameByUserId(ticket.assignedToId) }}</p>
+      <p><strong>Created On:</strong> {{ ticket.createdDate | date: 'short' }}</p>
+    </div>
+  </div>
+</div>

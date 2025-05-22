@@ -1,0 +1,45 @@
+<div class="ticket-container">
+  <div class="ticket-header">
+    <h2>Ticket: {{ ticket.title }}</h2>
+
+    <!-- Botón para cerrar el ticket, solo visible para createdById o assignedToId -->
+    <button *ngIf="canCloseTicket" (click)="closeTikcet()" class="btn-close-ticket">
+      Cerrar Ticket
+    </button>
+  </div>
+
+
+  <!-- Mostrar la información del ticket -->
+  <div class="ticket-info">
+    <p><strong>Status:</strong> {{ ticket.status }}</p>
+    <p><strong>Description:</strong> {{ ticket.description }}</p>
+    <p><strong>Created By:</strong> {{ getUserNameByUserId(ticket.createdById) }}</p>
+    <p><strong>Assigned To:</strong> {{ getUserNameByUserId(ticket.createdById) }}</p>
+    <p><strong>Created On:</strong> {{ ticket.createdDate | date: 'short' }}</p>
+  </div>
+
+  <!-- Mostrar comentarios -->
+  <div class="comments-section">
+    <h3>Comentarios</h3>
+    <div *ngIf="comments.length > 0">
+      <div class="comment" *ngFor="let comment of comments">
+        <p><strong>{{ getUserNameByUserId(comment.authorId)  }}:</strong> {{ comment.comment }}</p>
+        <small>{{ comment.createdDate | date: 'short' }}</small>
+      </div>
+    </div>
+    <div *ngIf="comments.length === 0">
+      <p>No hay comentarios disponibles.</p>
+    </div>
+  </div>
+
+  <!-- Campo para agregar comentario -->
+  <div *ngIf="canAddComment && ticket.status === 'Abierto'" class="add-comment">
+    <textarea [(ngModel)]="newComment" placeholder="Escribe tu comentario..." rows="4"></textarea>
+    <button (click)="addComment()" [disabled]="!newComment.trim() && sendingComment">Agregar Comentario</button>
+  </div>
+
+  <div *ngIf="ticket.status === 'Cerrado'" class="no-add-comment">
+    <p>No puedes agregar comentarios, el ticket está cerrado.</p>
+  </div>
+</div>
+
