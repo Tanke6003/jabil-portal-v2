@@ -1,0 +1,62 @@
+.form-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+
+    label {
+      margin-bottom: 0.25rem;
+      font-weight: 500;
+    }
+    input,
+    textarea {
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+      font-size: 0.95rem;
+    }
+    &.checkbox-group {
+      flex-direction: row;
+      align-items: center;
+      input { margin-right: 0.5rem; }
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 1rem;
+
+    button {
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 0.3rem;
+      cursor: pointer;
+      font-size: 0.95rem;
+
+      &.btn-secondary {
+        background: #ccc;
+        color: #333;
+      }
+      &:not(.btn-secondary) {
+        background: #007ad9;
+        color: #fff;
+      }
+      &:disabled {
+        background: #eee;
+        color: #999;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

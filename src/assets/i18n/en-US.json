@@ -1,0 +1,20 @@
+
+
+{
+  "Discrepancy Capture": "Discrepancy Capture",
+  "Week": "Week",
+  "Project": "Project",
+  "Line": "Line",
+  "Station": "Station",
+  "Department": "Department",
+  "Discrepancy": "Discrepancy",
+  "Workday ID": "Workday ID",
+  "Enter Workday ID": "Enter Workday ID",
+  "Comment": "Comment",
+  "Enter your comment": "Enter your comment",
+  "Cancelar": "Cancel",
+  "Guardar": "Save",
+  "Clear": "Clear",
+  "All fields are mandatory except the comment": "All fields are mandatory except the comment",
+  "ParetoByDiscrepancies": "Pareto by Discrepancies"
+}

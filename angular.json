@@ -3,18 +3,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "jabil-portal-v2": {
+    "ManufacturingPortal": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss",
-          "standalone": false
-        },
-        "@schematics/angular:directive": {
-          "standalone": false
-        },
-        "@schematics/angular:pipe": {
-          "standalone": false
+          "style": "scss"
         }
       },
       "root": "",
@@ -22,11 +15,14 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/jabil-portal-v2",
+            "allowedCommonJsDependencies": [
+              "highcharts"
+           ],
+            "outputPath": "dist/manufacturing-portal",
             "index": "src/index.html",
-            "browser": "src/main.ts",
+            "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -39,7 +35,14 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/highcharts/highcharts.js",
+              "node_modules/highcharts/modules/exporting.js",
+              "node_modules/highcharts/modules/export-data.js",
+              "node_modules/highcharts/modules/accessibility.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -47,7 +50,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "3mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -58,9 +61,12 @@
               "outputHashing": "all"
             },
             "development": {
+              "buildOptimizer": false,
               "optimization": false,
+              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"
@@ -69,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "jabil-portal-v2:build:production"
+              "browserTarget": "ManufacturingPortal:build:production"
             },
             "development": {
-              "buildTarget": "jabil-portal-v2:build:development"
+              "browserTarget": "ManufacturingPortal:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +86,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "jabil-portal-v2:build"
+            "browserTarget": "ManufacturingPortal:build"
           }
         },
         "test": {
@@ -102,6 +108,7 @@
             "scripts": []
           }
         }
+        
       }
     }
   }

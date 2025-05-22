@@ -1,0 +1,151 @@
+
+<p-toast></p-toast>
+<div class="container-fluid frame">
+  <div class="title-page">
+    <span class="parent-page">{{"Administration"| translate}} </span><span class="parent-page">/
+      {{"General" | translate }} </span><span class="children-page">/
+      {{"Users" | translate }}</span>
+  </div>
+  <div class="row justify-content-center">
+      <div class="col-xl-10 col-lg-10 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="row justify-content-between">
+              <div class="col-2 d-flex align-items-center ">
+                <span class="card-header-text">{{"Users"|translate}}</span>
+              </div>
+              <div class="col-2 d-flex justify-content-end">
+                <button class="btn btn-primary" (click)="addUser()" >{{"AddUser"|translate}}</button>
+              </div>
+            </div>
+          </div>
+          <p-table #dt1 tableStyleClass="jbl-table" [value]="showUsers" [rows]="10"
+            [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true"
+            [globalFilterFields]="['fullName',  'ntuser','email','roleName','available']"
+            >
+            <ng-template pTemplate="caption">
+              <div class="d-flex">
+                  <span class="p-input-icon-left ms-auto">
+                      <input #inputSearch class="form-control"  type="text" (input)="applyFilter($event,'contains')" placeholder="Search" />
+                  </span>
+              </div> 
+          </ng-template>
+            <ng-template pTemplate="header">
+              <tr class="">
+                <th style="width: 8rem;"></th>
+                <th >
+                  <span>{{"Name"|translate}}</span>
+                </th>
+                <th>
+                  <span>{{"Email"|translate}}</span>
+                </th>
+                <th>
+                  <span >{{"NTAccount"|translate}}</span>
+                </th>
+                <th >
+                  <span >{{"Role"|translate}}</span>
+                </th>
+                <th style="width: 8rem;">
+                  <div class="d-flex align-items-center">
+                    <span class="me-1 mt-1">{{"Available"|translate}}</span>
+                    <p-columnFilter type="boolean" field="available"></p-columnFilter>
+                  </div>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-user>
+              <tr class="">
+                <td class="text-center">
+                  <button class="btn btn-primary" (click)="edit(user)"><i
+                      class="fa fa-eye me-1"></i>{{"Edit"|translate}}</button>
+                </td>
+                <td>{{user.fullName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.ntUser}}</td>
+                <td>{{user.roleName}}</td>
+                <td class="text-center">
+                  <!-- <div class="chip-status" [ngClass]="user.available?'bg-success text-white':'bg-danger text-white'">
+                    <span>{{(user.available ? "Enabled":"Disabled")|translate}}</span>
+                  </div> -->
+                  <i [ngClass]="user.available?'fas fa-user text-success':'fas fa-user text-danger'"></i>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+
+        </div>
+      </div>
+  </div>
+</div>
+<p-dialog [showHeader]="true" [(visible)]="displayModal" [modal]="true" styleClass="modal-config-md"
+[draggable]="false" [resizable]="false"[header]="headerModal" [closable]="true" 
+[closeOnEscape]="true" [dismissableMask]="true" >
+
+
+<form [formGroup]="userForm" class="container">
+  <div class="row">
+  </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="-jbl-form-group">
+          <label for="ntUser">{{ 'NTAccount' | translate }}</label>
+          <div class="input-group">
+            
+            <input type="text" class="form-control" [readOnly]="!isNew" formControlName="ntUser" />
+            <button type="button" class="btn btn-primary" *ngIf="isNew" (click)="getUserInfo()">
+              {{ 'Search' | translate }}
+            </button>
+            <button type="button" class="btn btn-danger" *ngIf="isEdit && !isNew" (click)="cleanForm()">
+              {{ 'Clear' | translate }}
+            </button>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="jbl-form-group">
+          <label for="fullName">{{ 'FullName' | translate }}</label>
+          <input type="text" class="form-control" formControlName="fullName" readonly />
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="jbl-form-group">
+          <label for="email">{{ 'Email' | translate }}</label>
+          <input type="email" class="form-control" formControlName="email" readonly />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+        <div class="jbl-form-group">
+          <label for="role">{{ 'Role' | translate }}</label>
+          <p-dropdown
+            panelStyleClass="form-control"
+            formControlName="roleId"
+            [options]="roles"
+            placeholder="{{ 'Select a role' | translate }}"
+            optionLabel="name"
+            optionValue="id"
+            appendTo="body"
+            [tabindex]="-2"
+          ></p-dropdown>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="jbl-form-group">
+          <label for="available">{{ 'Available' | translate }}</label>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="available" formControlName="available" />
+          </div>
+        </div>
+    </div>
+        <div class="row justify-content-end">
+
+          <button type="submit" class="btn btn-danger col-xl-2 col-lg-4 col-md-5 col-sm-5 me-1" (click)="cancel()" >{{"Cancel"|translate}}</button>
+      
+          <button type="submit" class="btn  btn-primary col-xl-2 col-lg-4 col-md-5 col-sm-5"[disabled]="userForm.invalid" (click)="save()">{{"Save"|translate}}</button>
+      
+      
+        </div>
+
+  </form>
+  
+</p-dialog>

@@ -1,41 +1,33 @@
-import { Injectable }       from '@angular/core';
-import { HttpClient }       from '@angular/common/http';
-import { Observable }       from 'rxjs';
-import { map }              from 'rxjs/operators';
-import { environment }      from '../../../environments/environment';
-import { LoginResponse, RegisterRequest } from '../../Dtos/dtos';
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable, from } from "rxjs";
 
+import { LoadConfigService } from "./load-config.service";
+import { GetLocalStorage } from "../functions/localstorage";
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuthService {
-  private base = `${environment.apiUrl}/auth`;
+      constructor(private _http: HttpClient, private _loadConfigService: LoadConfigService) {
+      }
 
-  constructor(private http: HttpClient) { }
+      Login(info: any): Observable<any> {
+            console.log(info);
+            return this._http.post<any[]>(`${this._loadConfigService.getConfig().apiUrl}auth/login`, info);
+      }
+      GetMenu(): Observable<any> {
+            let token = GetLocalStorage(this._loadConfigService.getConfig().tokenName);
+            const headers = new HttpHeaders().append('Authorization', `Bearer ${token}`)
+            return this._http.get<any[]>(`${this._loadConfigService.getConfig().apiUrl}Auth/GetMenu`, { headers });
+      }
+      GetUserInfoByNTUser(ntUser: string): Observable<any> {
+            return this._http.get<any[]>(`${this._loadConfigService.getConfig().apiUrl}Auth/GetUserInfoUserFromActiveDirectory?ntUser=${ntUser}`);
+      }
+      LoginAsGuest(): Observable<any> {
+            return this._http.get<any[]>(`${this._loadConfigService.getConfig().apiUrl}Auth/LoginAsGuest`);
+      }
+      Register(info: any): Observable<any> {
+            console.log(info);
+            return this._http.post<any[]>(`${this._loadConfigService.getConfig().apiUrl}auth/register`, info);
+      }
 
-  /** Llama a POST /api/auth/login */
-  login(creds: { username: string; password: string; }): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.base}/login`, creds);
-  }
-
-  /** Llama a POST /api/auth/register */
-  register(data: RegisterRequest): Observable<void> {
-    return this.http.post<void>(`${this.base}/register`, data);
-  }
-
-  /** Obtiene el token almacenado */
-  get token(): string | null {
-    return localStorage.getItem('token');
-  }
-
-  /** Guarda el token */
-  setToken(token: string) {
-    localStorage.setItem('token', token);
-  }
-
-  /** Borra el token */
-  logout() {
-    localStorage.removeItem('token');
-  }
 }

@@ -1,0 +1,12 @@
+{
+    "apiUrl":"http://localhost:5038/",
+    "version":"1.0.0",
+    "supportEmail":"_24c9b0@Jabil.com",
+    "environment":"Staging",
+    "appName":"Sistema de Registro de Aplicaciones",
+    "tokenName":"AppRecordSystemToken",
+    "translateApiKey":"",
+    "translateApiUrl":"",
+    "defaultLanguage":"es-MX",
+    "statusApp":"Up"
+}

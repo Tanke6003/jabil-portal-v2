@@ -1,0 +1,146 @@
+.container-cards{
+    display: flex;
+    justify-content: space-between;
+    display: row;
+}
+.single-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  margin: 0 8px;
+  width: calc((100% / 2.5) - 32px);
+  padding: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.container-img {
+  margin: 8px auto 8px auto;
+  display: flex;
+  justify-content: center;
+}
+
+.container-img img {
+  width: 80%; 
+  height: auto; /* Cambiado para mantener la relación de aspecto */
+  border-radius: 5px;
+}
+
+.container-text {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.section-text {
+  display: flex;
+  flex-direction: column;
+}
+
+p {
+  font-size: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.container-button {
+  // margin-top: auto; /* Alinea el botón al final */
+  display: flex;
+  justify-content: center; /* Centra el botón horizontalmente */
+}
+
+
+
+  
+.container-cards {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .carousel-item {
+//   flex: 0 0 100%;
+//   margin: 0;
+  padding: 0;
+  //min-height: 10rem;
+  display: none; 
+  }
+  .carousel {
+  display: flex;
+//   width: 100%;
+  flex: 1;
+  overflow: hidden;
+  }
+//   .prev-button{
+  
+//     margin-right: .8rem;
+//   }
+//   .next-button{
+//     margin-left: .8rem;
+//   }
+  .prev-button,
+  .next-button {
+    background-color: #0038656d;
+    color: #fff;
+    border: none;
+    //padding: 10px;
+    margin: .1rem;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 50%;
+    &:hover{
+      background-color: #003865;
+    }
+  }
+  
+  
+  
+  .carousel-item.active {
+  display: block; 
+  //background-color: transparent!important;
+
+  }
+  
+  .controls {
+  margin-top: 10px;
+  text-align: center;
+  }
+  #carouselItem.carousel-item {
+    // width: 100%; 
+    overflow: hidden; 
+    
+}
+
+.container-button {
+
+}
+
+.container-button .btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.container-button .btn:hover {
+  background-color: #0056b3;
+}
+
+.container-text h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.container-text p {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}

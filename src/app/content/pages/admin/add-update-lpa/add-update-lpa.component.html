@@ -1,0 +1,76 @@
+<div class="container-fluid">
+    <div class="row  p-3">
+        <div class="col-12">
+            <form class="form-horizontal" (ngSubmit)="save()">
+                <div class="form-group row">
+                    <label for="proyecto" class="col-sm-2 col-form-label">Proyecto:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="proyecto" [(ngModel)]="newRegister.project" name="proyecto">
+                    </div>
+                    <label for="linea" class="col-sm-2 col-form-label">Línea:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="linea" [(ngModel)]="newRegister.line" name="linea">
+                    </div>
+                </div>
+                <div class="form-group row mt-2">
+                    <label for="estacion" class="col-sm-2 col-form-label">Estación:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="estacion" [(ngModel)]="newRegister.station" name="estacion">
+                    </div>
+                    <label for="url" class="col-sm-2 col-form-label">URL:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="url" [(ngModel)]="newRegister.url" name="url">
+                    </div>
+                </div>
+                <div class="form-group row mt-3">
+                    <div class="col-sm-12 text-center">
+                        <button type="submit" class="btn btn-primary" [disabled]="consulting">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <p-table [value]="registers" [paginator]="true" [rows]="5" [responsiveLayout]="'scroll'" tableStyleClass="table table-striped table-bordered">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Acronimo
+                            <p-columnFilter type="text" field="name"  display="menu" />
+                        </th>
+                        <th>Proyecto
+                            <p-columnFilter type="text" field="project"  display="menu" />
+                        </th>
+                        <th>Línea
+                            <p-columnFilter type="text" field="line"  display="menu" />
+                        </th>
+                        <th>Estación
+                            <p-columnFilter type="text" field="station"  display="menu" />
+                        </th>
+                        <th>URL
+                            <p-columnFilter type="text" field="url"  display="menu" />
+                        </th>
+                        <th>Code</th>
+                        <!-- <th>Acciones</th> -->
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-registro>
+                    <tr class="text-center">
+                        <td  class="text-center">{{registro.name}}</td>
+                        <td  class="text-center">{{ registro.project }}</td>
+                        <td  class="text-center">{{ registro.line }}</td>
+                        <td  class="text-center">{{ registro.station }}</td>
+                        <td  class="text-center"><a [href]="registro.url" target="_blank"  class="text-center">{{ registro.url }}</a></td>
+                        <td>
+                           
+                        </td>
+                        <!-- <td>
+                           <button class="btn btn-danger btn-sm" (click)="eliminarRegistro(registro)">Eliminar</button> 
+                        </td> -->
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

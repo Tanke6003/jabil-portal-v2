@@ -1,0 +1,179 @@
+<div class="container-fluid">
+    <!-- header filters -->
+    <div class="row justify-content-center py-3">
+        <div class="col-xl-12 col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title m-0 fs-4" >{{"FourQReport"|translate}}</h2>
+                </div>
+                <div class="card-body p-2">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-4">
+                           
+                                  <label for="" class="form-label">{{"Sites"|translate}}</label>
+                                  <p-multiSelect [options]="sites" optionValue="id" optionLabel="name"
+                                      placeholder="Choose..." [style]="{'min-width':'100%'}" 
+                                      [maxSelectedLabels]="1" selectedItemsLabel="{0} {{'SiteSelected'|translate}}"
+                                      (onChange)="onSiteChange()" 
+                                      [(ngModel)]="selectedSites"
+                                      ></p-multiSelect>
+                             
+                            </div>
+                              <div class="col-lg-2 col-md-4">
+                               
+                                      <label for="" class="form-label">{{"Buildings"|translate}}</label>
+                                      <p-multiSelect [options]="buildings" optionValue="id" optionLabel="name"
+                                          placeholder="Choose..." [style]="{'min-width':'100%'}" 
+                                          [maxSelectedLabels]="1" selectedItemsLabel="{0} {{'BuildingSelected'|translate}}"
+                                          [(ngModel)]="selectedBuildings"
+                                          (onChange)="onBuildingChange()" 
+                                          ></p-multiSelect>
+                              </div>
+                              <div class="col-lg-2 col-md-4">
+                                  <label for="" class="form-label">{{"Projects"|translate}}</label>
+                                  <p-multiSelect [options]="projects" optionValue="id" optionLabel="name"
+                                      placeholder="Choose..." [style]="{'min-width':'100%'}" 
+                                      [maxSelectedLabels]="1" selectedItemsLabel="{0} {{'ProjectSelected'|translate}}"
+                                      [(ngModel)]="selectedProjects"
+                                      (onChange)="onProjectChange()" 
+
+                                      ></p-multiSelect>
+                                      </div>
+                              <div class="col-lg-2 col-md-4">
+                                  <label for="dropdown1" class="form-label">{{"Date"|translate}}</label>
+                              <p-calendar [(ngModel)]="date"  [showIcon]="true"
+                                  [readonlyInput]="true" [style]="{'min-width':'100%'}" [icon]="'pi pi-calendar'" [required]="true"
+                                  (onSelect)="onDateChange()"
+
+                                  >
+                                
+                              </p-calendar>
+                              </div>
+                              <div class="col-lg-2 col-md-4 d-flex">
+                               
+                                <button class="btn btn-primary mt-auto" (click)="loadReport()">{{"search"|translate}}</button>
+                            </div>
+      
+                          </div>
+                    </div>
+            
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- body -->
+    <div class="row">
+        <div class="col-md-12 col-lg-6 mb-3">
+            <div class="card card-report">
+                <div class="card-header card-report-header"><i class="logo fa-solid fa-chart-simple"></i>
+                  {{"LastTwelveWeeks"|translate}}
+                 
+                </div>
+                  
+                <div class="card-body p-0 cb4q">
+                    <app-mixed-chart [chartData]="graphLastTwelveWeeks" *ngIf="graphLastTwelveWeeks.series.length>0"></app-mixed-chart>
+                  
+                </div>
+              </div>
+        </div>
+        <div class="col-md-12 col-lg-6">
+            <div class="card card-report">
+                <div class="card-header card-report-header"><i class="logo fa-solid fa-chart-simple"></i>
+                  {{"ParetoByDiscrepancies"|translate}}
+                 
+                </div>
+                  
+                <div class="card-body p-0 cb4q">
+                    <app-mixed-chart [chartData]="graphParetoDiscrepancies" *ngIf="graphParetoDiscrepancies.series.length>0"></app-mixed-chart>
+                  
+                </div>
+              </div>
+        </div>
+        <div class="col-md-12 col-lg-6">
+            <div class="card card-report">
+                <div class="card-header card-report-header"><i class="logo fa-solid fa-chart-simple"></i>
+                  {{"Painter"|translate}}
+                 
+                </div>
+                  
+                <div class="card-body p-0 cb4q">
+                    <app-painter [data]="painter" [colProperty]="'colProperty'"    [rowProperty]="'rowProperty'" *ngIf="this.painter.length> 0" id="painter"></app-painter>
+                    <!-- <app-mixed-chart [chartData]="q1" *ngIf="loaded"></app-mixed-chart> -->
+                  
+                </div>
+              </div>
+        </div>
+        <div class="col-md-12 col-lg-6">
+            <div class="card card-report">
+                <div class="card-header card-report-header"><i class="logo fa-solid fa-chart-simple"></i>
+                  {{"ActionPlan"|translate}}
+                  <button class="btn btn-secondary ms-auto p-1 btn-add-action mt-auto" style="position:absolute; right: 60px ;top:3px;"
+                  (click)="addAction()">{{"AddAction"|translate}} <i class="fas fa-plus"></i></button>
+                </div>
+                  
+                <div class="card-body p-0 cb4q">
+                    <table class="table table-bordered table-actions mb-0  freeze-header" #actionsdiv>
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th style="">{{"Project"|translate}}</th>
+                            <th style="">{{"ProblemName"|translate}}</th>
+                            <th style="">{{"ProblemDescription"|translate}}</th>
+                            <th style="">{{"Actions"|translate}}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let action of actions">
+                            <td class="action-td"><button class="btn btn-info" (click)="editAction(action.id)">
+                                <i class="fa fa-info"></i>
+                              </button></td>
+                            <td class="action-td">{{getProjectName(action.projectID)}}</td>
+                            <td class="action-td">{{action.name}}</td>
+                            <td class="action-td">
+            
+                              <b>{{"What"|translate}}: </b> {{action.w1}}
+                              <br>
+                              <b>{{"When"|translate}}: </b> {{action.w2}}
+                              <br>
+                              <b>{{"Where"|translate}}: </b> {{action.w3}}
+                              <br>
+                              <b>{{"Who"|translate}}: </b> {{action.w4}}
+                              <br>
+                              <b>{{"Why"|translate}}: </b> {{action.w5}}
+            
+                            </td>
+                            <td>
+                              <div class="mt-4 pe-3">
+                                <span class="badge-jb mx-auto" [attr.data-badge]="getNumberBadgeActions(action,1)"
+                                  [ngClass]="getColorBadgeActions(action,1)">
+                                  {{ "CorrectiveActions" | translate }}
+                                </span>
+                              </div>
+                              <br>
+                              <div>
+                                <span class="badge-jb mx-auto " [attr.data-badge]="getNumberBadgeActions(action,2)"
+                                  [ngClass]="getColorBadgeActions(action,2)">
+                                  {{ "ContainmentActions" | translate }}
+                                </span>
+                              </div>
+            
+            
+            
+            
+            
+            
+                            </td>
+            
+            
+                          </tr>
+                        </tbody>
+                      </table>
+                    
+                  
+                </div>
+              </div>
+        </div>
+    </div>
+</div>

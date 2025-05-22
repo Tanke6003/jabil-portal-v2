@@ -1,2 +1,11 @@
-
-<router-outlet />
+<router-outlet *ngIf="translationLoaded && statusApp!='Down' ;else spinner"></router-outlet>
+<p-toast [baseZIndex]="-1" position="top-right" key="tr" class="ToastCopy" [life]="10000"></p-toast>
+<ng-template #spinner>
+  <div *ngIf="statusApp!='Down';else down">
+    <app-loader></app-loader>
+  </div>
+  <ng-template #down>
+    <app-down></app-down>
+</ng-template>
+  
+</ng-template>

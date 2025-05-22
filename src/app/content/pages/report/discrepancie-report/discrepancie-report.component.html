@@ -1,0 +1,152 @@
+<div class="container-fluid">
+  <!-- Filters -->
+  <div class="row my-3">
+    <div class="col-xl-12 col-lg-12">
+      <div class="card header-report">
+        <div class="card-header py-0 report-header-card-header">
+          <div class="d-flex">
+            <p class="p-0 my-auto">{{"DiscrepanciesReport"|translate}}</p>
+            <button class="btn btn-primary ms-auto" (click)="showFilters = !showFilters"><i class="fa "
+                [ngClass]="showFilters?'fa-minus':'fa-plus'"></i></button>
+          </div>
+        </div>
+        <div class="container-fluid d-flex">
+          <div *ngIf="!showFilters; else filters">
+          </div>
+          <ng-template #filters>
+
+            <div class="jbl-filter-group ">
+
+              <div class="jbl-filter form-group">
+                <label for="">{{"Site"|translate}}</label>
+                <p-multiSelect panelStyleClass="form-control" appendTo="body" optionLabel="name" optionValue="id"
+                  [options]="sites" [filter]="false" [showHeader]="false" [(ngModel)]="selectedsSites"
+                  [maxSelectedLabels]="1" selectedItemsLabel="Sites Selected {0}"
+                  (onChange)="onChangesSites()"></p-multiSelect>
+              </div>
+
+              <div class="jbl-filter form-group">
+                <label for="">{{"Building"|translate}}</label>
+                <p-multiSelect panelStyleClass="form-control" appendTo="body" optionLabel="name"
+                  selectedItemsLabel="Buildings Selected {0}" optionValue="id" [options]="buildings"
+                  [(ngModel)]="selectedsBuildings" [maxSelectedLabels]="2"
+                  (onChange)="onChangesBuildings()"></p-multiSelect>
+              </div>
+              <div class="jbl-filter form-group">
+                <label for="">{{"Project"|translate}}</label>
+                <p-multiSelect panelStyleClass="form-control" appendTo="body" optionLabel="name" [options]="projects"
+                  optionValue="id" [(ngModel)]="selectedsProjects" selectedItemsLabel="Projects Selected {0}"
+                  [maxSelectedLabels]="2"></p-multiSelect>
+              </div>
+
+              <div class="jbl-filter
+                  form-group">
+                <label for="">{{"BeginDate"|translate}}</label>
+                <input type="date" class="form-control" [(ngModel)]="beginDate">
+
+              </div>
+              <div class="jbl-filter form-group">
+                <label for="">{{"EndDate"|translate}}</label>
+                <input type="date" class="form-control" [(ngModel)]="endDate">
+              </div>
+
+              <div class="jbl-filter d-flex">
+                <button class="btn btn-primary mt-auto" (click)="search()">{{"Search"|translate}}</button>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="card card-report">
+        <div class="card-header card-report-header d-flex fs-5">
+
+
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <p-table #dt2 [resizableColumns]="true" columnResizeMode="expand" [value]="discrepancies" dataKey="id"
+              [rows]="15" [rowsPerPageOptions]="[15, 30, 45]" [loading]="loading" [paginator]="true"
+              [globalFilterFields]="['discrepancyDate', 'projectName', 'departmentName', 'shift', 'stationName', 'discrepancyName', 'reasonName', 'createdDate', 'createdUser','comment']"
+              [tableStyle]="{ 'min-width': '90dvw', 'max-width': '90dvw','width':'90vw'}"
+              styleClass="p-datatable-gridlines" tableStyleClass="table-bordered table-rtd">
+              <ng-template pTemplate="caption">
+                <div class="d-flex">
+                  <button class="btn btn-primary me-auto" (click)="export()"> Export</button>
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <th style="width: 10%" pResizableColumn>{{ "Discrepancy Date" | translate }}</th>
+                  <th style="width: 15%" pResizableColumn>{{ "Project" | translate }}
+                    <p-columnFilter type="text" field="projectName" display="menu"></p-columnFilter>
+                  </th>
+                  <th style="width: 15%" pResizableColumn>{{ "Department" | translate }}
+                    <p-columnFilter type="text" field="departmentName" display="menu"></p-columnFilter>
+                  </th>
+                  <th style="width: 15%" pResizableColumn>{{ "Shift" | translate }}
+                    <p-columnFilter type="text" field="shift" display="menu"></p-columnFilter>
+                  </th>
+                  <th style="width: 15%" pResizableColumn>{{ "Station" | translate }}
+                    <p-columnFilter type="text" field="stationName" display="menu"></p-columnFilter>
+                  </th>
+                  <th style="width: 15%" pResizableColumn>{{ "M" | translate }}
+                    <p-columnFilter type="text" field="m" display="menu"></p-columnFilter>
+                  </th>
+                  <th pResizableColumn>{{ "Discrepancy Name" | translate }}
+                    <p-columnFilter type="text" field="discrepancyName" display="menu"></p-columnFilter>
+                  </th>
+                  <th pResizableColumn>{{ "Reason" | translate }}
+                    <p-columnFilter type="text" field="reasonName" display="menu"></p-columnFilter>
+                  </th>
+                  <th pResizableColumn>{{ "Comment" | translate }}
+                    <p-columnFilter type="text" field="comment" display="menu"></p-columnFilter>
+                  </th>
+                  <th pResizableColumn>{{ "WorkdayID Finder" | translate }}
+                    <p-columnFilter type="text" field="workdayId" display="menu"></p-columnFilter>
+                  </th>
+                  <th pResizableColumn>{{ "Created Date" | translate }}</th>
+                  <th pResizableColumn>{{ "Created User" | translate }}
+                    <p-columnFilter type="text" field="createdUser" display="menu"></p-columnFilter>
+                  </th>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="body" let-discrepancy>
+                <tr>
+                  <td>{{ discrepancy.discrepancyDate | date:'MM/dd/yyyy' }}</td>
+                  <td>{{ discrepancy.projectName }}</td>
+                  <td>{{ discrepancy.departmentName }}</td>
+                  <td>{{ discrepancy.shift }}</td>
+                  <td>{{ discrepancy.stationName }}</td>
+                  <td>{{ discrepancy.m }}</td>
+                  <td>{{ discrepancy.discrepancyName }}</td>
+                  <td>{{ discrepancy.reasonName }}</td>
+                  <td>{{ discrepancy.comment }}</td>
+                  <td>{{ discrepancy.reportedBy }}</td>
+                  <td>{{ discrepancy.createdDate | date:'MM/dd/yyyy hh:mm a' }}</td>
+                  <td>{{ discrepancy.createdUser }}</td>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="emptymessage">
+                <tr>
+                  <td colspan="10">{{ "No discrepancies found" | translate }}</td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- maximize actions-->

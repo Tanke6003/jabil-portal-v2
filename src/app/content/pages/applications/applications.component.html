@@ -1,0 +1,62 @@
+<div class="app-table-container">
+  <div class="table-header">
+    <h2>{{ 'Applications' | translate }}</h2>
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="onSearch()"
+      placeholder="{{ 'Search...' | translate }}"
+      class="search-input"
+    />
+  </div>
+
+  <div class="table-wrapper">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>{{ 'Name' | translate }}</th>
+          <th>{{ 'Description' | translate }}</th>
+          <th>{{ 'URL' | translate }}</th>
+          <th>{{ 'Server' | translate }}</th>
+          <th>{{ 'Repository' | translate }}</th>
+          <th>{{ 'Owner' | translate }}</th>
+          <th>{{ 'Support Email' | translate }}</th>
+          <th>{{ 'SME Email' | translate }}</th>
+          <th>{{ 'DB Server' | translate }}</th>
+          <th>{{ 'Created At' | translate }}</th>
+          <th>{{ 'Available' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let app of filteredApps" (click)="onRowClick(app)"  class="clickable-row">
+          <td>{{ app.id }}</td>
+          <td>{{ app.name }}</td>
+          <td>{{ app.description }}</td>
+          <td>
+            <a *ngIf="app.url" [href]="app.url" target="_blank">{{ app.url }}</a>
+          </td>
+          <td>{{ app.server }}</td>
+          <td>{{ app.repository }}</td>
+          <td>{{ getUserNameById(app.ownerId) }}</td>
+          <td>{{ app.supportEmail }}</td>
+          <td>{{ app.smeEmail }}</td>
+          <td>{{ app.dbServer }}</td>
+          <td>{{ app.createdAt | date:'short' }}</td>
+          <td>
+            <span
+              class="status-badge"
+              [class.available]="app.available"
+              [class.unavailable]="!app.available"
+            >
+              {{ app.available ? ('Yes'|translate) : ('No'|translate) }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!filteredApps.length" class="no-data">
+      {{ 'No records found' | translate }}
+    </div>
+  </div>
+</div>

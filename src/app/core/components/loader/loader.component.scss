@@ -1,0 +1,60 @@
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  .logo {
+    width: 40rem; /* Ajusta el tamaño del logo según tus necesidades */
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  .loader {
+    display: flex;
+    justify-content: center;
+    width: 40rem; /* Ajusta el ancho total del loader según tus necesidades */
+    height: auto;
+
+    .dot {
+      width: 1.5rem; /* Ajusta el tamaño de los puntos según tus necesidades */
+      height: 1.5rem;
+      background-color: #003865; /* Cambia el color del fondo según tus necesidades */
+      border-radius: 50%;
+      margin: 0 1rem; /* Ajusta el espaciado horizontal entre los puntos según tus necesidades */
+      opacity: 0;
+      animation: dot-animation 3s infinite ease-in-out;
+      transform-origin: center; /* Define el origen de la transformación */
+      &:nth-child(1) {
+        animation-delay: -0.4s;
+      }
+
+      &:nth-child(2) {
+        animation-delay: -0.3s;
+      }
+
+      &:nth-child(3) {
+        animation-delay: -0.2s;
+      }
+
+      &:nth-child(4) {
+        animation-delay: -0.1s;
+      }
+
+      &:nth-child(5) {
+        animation-delay: 0s;
+      }
+
+      &:nth-child(6) {
+        animation-delay: 0.1s;
+      }
+    }
+  }
+}
+
+@keyframes dot-animation {
+  0% { opacity: 0; transform: scale(0.5); }
+  40%, 60% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.5); }
+}

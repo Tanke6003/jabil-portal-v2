@@ -1,0 +1,51 @@
+
+<div class="head" >
+  <div class="head-content">
+    <div class="head-content-left">
+      <div class="platform-information">
+        <div class="platform-logo">
+          <img src="assets/img/Jabil_Logo.png" alt="logo"  />
+        </div>
+        <div class="platform-name">
+          <span class="appname-text">{{titleApp | translate}}<sub *ngIf="version!=''" class="app-version-no"> vesion: {{version}}</sub></span>
+        </div>
+      </div>
+    </div>
+    <div class="head-content-right">
+      <div class="mr-2">
+      </div>
+
+      <div class="head-menu">
+        <!-- <div class="px-2">
+          <p-dropdown [options]="sites" [(ngModel)]="selectedSite"optionLabel="shortName" optionValue="pkSite"></p-dropdown>
+        </div> -->
+        <div class="px-2">
+          <p-dropdown [options]="lenguages" [(ngModel)]="selectedLenguage"optionLabel="flag" (onChange)="SelectedLenguageChague()" appendTo="body">
+            <ng-template pTemplate="selectedItem">
+                <div class="flex align-items-center gap-2" *ngIf="selectedLenguage">
+                  <img src="assets/img/flags/{{selectedLenguage.code}}.png" alt="{{selectedLenguage.code}}">
+                  <span class="px-1">{{selectedLenguage.flag}}</span>
+                </div>
+            </ng-template>
+            <ng-template let-lenguage pTemplate="item">
+                <div class="flex align-items-center gap-2">
+                  <img src="assets/img/flags/{{lenguage.code}}.png" alt="{{lenguage.code}}">
+                  <span class="px-1">{{lenguage.flag}}</span>
+                </div>
+            </ng-template>
+        </p-dropdown>
+        </div>
+        <div class="head-user-avatar-container">
+
+          <div>
+            <!-- <p-splitButton  styleClass="head-menu-item-btn btn-primary" [label]="UserID||'UserView'" icon="fas fa-user"  [model]="MenuButton"></p-splitButton> -->
+            <button #btn type="button"class="btn btn-primary"  (click)=" userID!=='UserView'?menu.toggle($event):goToLogin()">
+              <span class=""><i class="fas fa-user pe-2"></i>{{userID||'UserView'}}<i class="ps-2 fas fa-chevron-down"></i></span>
+            </button>
+            <p-tieredMenu #menu [model]="MenuButton" [popup]="true"></p-tieredMenu>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

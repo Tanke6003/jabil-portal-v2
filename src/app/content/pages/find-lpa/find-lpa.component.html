@@ -1,0 +1,68 @@
+<div class="container-fluid">
+    <h1>Buscar LPA Electronico</h1>
+    <div class="row justify-content-around p-3">
+        <div class="col-3 d-flex">
+            <div class="form-group">
+                <label for="">Codigo:</label>
+                <input type="text" placeholder="escanea aqui tu qr" [(ngModel)]="code">
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" (click)="search()">buscar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-around  mt-4">
+        <div class="col-6">
+            <table class="table table-striped table-bordered" *ngIf="register.id!=0 && register.id!=null&& register.id!=undefined">
+                <tr>
+                    <th>
+                        Acronimo:
+                    </th>
+                    <td>
+                        {{register.name}}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Projecto:
+                    </th>
+                    <td>
+                        {{register.project}}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Linea:
+                    </th>
+                    <td>
+                        {{register.line}}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Estación:
+                    </th>
+                    <td>
+                        {{register.station}}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Link:
+                    </th>
+                    <td>
+                        <a [href]="register.url" target="_blank" >{{register.url}}</a>
+                    </td>
+                </tr>
+            
+            </table>
+            <div class="card bg-danger" *ngIf="(register.id==0 || register.id==null || register.id==undefined) && searched == true">
+                <div class="card-body">
+                    <h2 class="text-white"> No encontrado</h2>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</div>

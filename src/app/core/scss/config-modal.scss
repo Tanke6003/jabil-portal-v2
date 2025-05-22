@@ -1,0 +1,80 @@
+.modal-config.p-dialog.p-component{
+
+  @media screen and (min-width: 1201px) {
+    width: 50vw !important;
+  }
+  @media screen and (max-width: 1200px) {
+    width: 50vw !important; 
+  }
+  @media screen and (max-width: 992px) {
+    width: 66.66667vw !important; 
+  }
+  @media screen and (max-width: 768px) {
+    width: 90vw !important;
+  }
+  @media screen and (max-width: 576px) {
+    width: 90vw !important;
+  }
+
+}
+.modal-config-sm.p-dialog.p-component{
+
+  @media screen and (min-width: 1201px) {
+    width: 30vw !important;
+  }
+  @media screen and (max-width: 1200px) {
+    width: 30vw !important; 
+  }
+  @media screen and (max-width: 992px) {
+    width: 50vw !important; 
+  }
+  @media screen and (max-width: 768px) {
+    width: 90vw !important;
+  }
+  @media screen and (max-width: 576px) {
+    width: 90vw !important;
+  }
+
+}
+
+.modal-config-md.p-dialog.p-component{
+
+  @media screen and (min-width: 1201px) {
+    width: 50vw !important;
+  }
+  @media screen and (max-width: 1200px) {
+    width: 50vw !important; 
+  }
+  @media screen and (max-width: 992px) {
+    width: 70vw !important; 
+  }
+  @media screen and (max-width: 768px) {
+    width: 90vw !important;
+  }
+  @media screen and (max-width: 576px) {
+    width: 90vw !important;
+  }
+
+}
+
+  
+  .modal-config-lg.p-dialog.p-component{
+
+    @media screen and (min-width: 1201px) {
+      width: 90vw !important;
+    }
+    @media screen and (max-width: 1200px) {
+      width: 90vw !important; 
+    }
+    @media screen and (max-width: 992px) {
+      width: 100vw !important; 
+    }
+    @media screen and (max-width: 768px) {
+      width: 100vw !important;
+    }
+    @media screen and (max-width: 576px) {
+      width: 100vw !important;
+    }
+
+  }
+  

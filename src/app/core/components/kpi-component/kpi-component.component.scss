@@ -1,0 +1,46 @@
+.kpi-metric-container {
+  display: flex;
+  flex-wrap: wrap;
+  //gap: 1rem;
+}
+
+/* Personalización de las tarjetas */
+.kpi-metric {
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.kpi-metric:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  transform: translateY(-5px);
+}
+
+
+.kpi-success {
+  background-color: #4caf50;
+}
+
+.kpi-warning {
+  background-color: #ffc107;
+  color: #333333;
+}
+
+.kpi-danger {
+  background: linear-gradient(to left, rgba(244, 67, 54, 0.85) 0%, rgba(244, 67, 54, 1) 100%);
+}
+
+
+#compositeline svg path {
+  transition: all 0.3s ease-in-out;
+  
+}
+svg{
+  border-radius: 0 0  0.5rem  0.5rem;
+}
+
+.kpi-metric:hover #compositeline svg path {
+  fill: rgba(255, 255, 255, 0.8);
+  stroke: rgba(255, 255, 255, 1);
+  stroke-width: 3px;
+}

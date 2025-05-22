@@ -1,0 +1,87 @@
+<div class="form-container">
+  <h2>{{ isEditMode ? ('Update Application' | translate) : ('New Application' | translate) }}</h2>
+  <form [formGroup]="appForm" (ngSubmit)="onSubmit()">
+    <div class="form-group" [class.invalid]="isInvalid('name')">
+      <label>{{ 'Name' | translate }}</label>
+      <input formControlName="name" placeholder="{{ 'Enter name' | translate }}" />
+      <div class="error" *ngIf="isInvalid('name')">
+        {{ 'Name is required' | translate }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'Description' | translate }}</label>
+      <textarea formControlName="description" placeholder="{{ 'Enter description' | translate }}"></textarea>
+    </div>
+
+    <div class="form-group" [class.invalid]="isInvalid('url')">
+      <label>{{ 'URL' | translate }}</label>
+      <input formControlName="url" placeholder="{{ 'Enter URL' | translate }}" />
+      <div class="error" *ngIf="isInvalid('url')">
+        {{ 'Invalid URL format' | translate }}
+      </div>
+    </div>
+
+    <div class="form-group" [class.invalid]="isInvalid('server')">
+      <label>{{ 'Server' | translate }}</label>
+      <input formControlName="server" placeholder="{{ 'Enter server' | translate }}" />
+      <div class="error" *ngIf="isInvalid('server')">
+        {{ 'Server is required' | translate }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'Repository' | translate }}</label>
+      <input formControlName="repository" placeholder="{{ 'Enter repo URL' | translate }}" />
+    </div>
+
+    <div class="form-group" [class.invalid]="isInvalid('ownerId')">
+      <label>{{ 'Owner' | translate }}</label>
+     <select formControlName="ownerId">
+  <option [ngValue]="null">-- Select owner --</option>
+  <option *ngFor="let u of users" [ngValue]="u.id">{{ u.name }}</option>
+</select>
+
+      <div class="error" *ngIf="isInvalid('ownerId')">
+        {{ 'Owner is required' | translate }}
+      </div>
+    </div>
+
+    <div class="form-group" [class.invalid]="isInvalid('supportEmail')">
+      <label>{{ 'Support Email' | translate }}</label>
+      <input formControlName="supportEmail" placeholder="{{ 'Enter support email' | translate }}" type="email" />
+      <div class="error" *ngIf="isInvalid('supportEmail')">
+        {{ 'Valid support email is required' | translate }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'SME Email' | translate }}</label>
+      <input formControlName="smeEmail" placeholder="{{ 'Enter SME email' | translate }}" type="email" />
+      <div class="error" *ngIf="isInvalid('smeEmail')">
+        {{ 'Valid SME email is required' | translate }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'DB Server' | translate }}</label>
+      <input formControlName="dbServer" placeholder="{{ 'Enter DB server' | translate }}" />
+    </div>
+
+    <div class="form-group checkbox-group">
+      <label>
+        <input type="checkbox" formControlName="available" />
+        {{ 'Available' | translate }}
+      </label>
+    </div>
+
+    <div class="actions">
+      <button type="submit" [disabled]="appForm.invalid">
+        {{ isEditMode ? ('Update' | translate) : ('Create' | translate) }}
+      </button>
+      <button type="button" (click)="cancel()" class="btn-secondary">
+        {{ 'Cancel' | translate }}
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,108 @@
+<div *ngIf="!isLoad; else page">
+    <app-loader></app-loader>
+</div>
+<ng-template #page>
+    <div class="container-fluid frame">
+        <div class="title-page">
+            <span class="parent-page">{{"Administration"| translate}} </span><span class="children-page ">/
+                {{"Shifts" | translate }}</span>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="card-title">{{"Shifts" | translate}}</h4>
+                            </div>
+                            <div class="col-md-6 d-flex">
+                                <button class="btn btn-primary ms-auto" (click)="addShift()">
+                                    <i class="fa fa-plus"></i> {{"AddShift" | translate}}</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <p-table #dt1 tableStyleClass="card-body jbl-table" [value]="shifts" [rows]="10"
+                        [rowsPerPageOptions]="[10, 25, 50]" [paginator]="true" [globalFilterFields]="['name']">
+                        <ng-template pTemplate="caption">
+                            <div class="d-flex">
+                                <span class="p-input-icon-left ms-auto">
+                                    <input #inputSearch class="form-control" type="text"
+                                        (input)="applyFilter($event,'contains')" placeholder="Search" />
+                                </span>
+                            </div>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                            <tr class="">
+                                <th style="width: 0rem!important;">
+                                </th>
+                                <th>
+                                    <span class="  me-2">{{"Name"|translate}}</span>
+                                </th>
+                                <th>
+                                    <span class=" ">{{"Available"|translate}}</span>
+                                </th>
+                                
+                                
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-shift let-i="rowIndex">
+                            <tr class="">
+                                <td class="text-center">
+                                    <button class="btn btn-primary d-flex text-center"
+                                        (click)="editShift(shift.id)"><i
+                                            class="fa fa-edit  me-1 mt-1"></i>{{"Edit"|translate}}</button>
+                                </td>
+                                <td>{{shift.name}}</td>
+                        
+                                <td style="width: 8rem; " class="text-center">
+                                    <i
+                                        [ngClass]="shift.available?'fas fa-check text-success':'fas fa-x text-danger'"></i>
+                                </td>
+                               
+                            </tr>
+                        </ng-template>
+
+                    </p-table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<p-dialog [showHeader]="true" [(visible)]="openDialogShift" [modal]="true" styleClass="modal-config-md"
+    [draggable]="false" [resizable]="false" [header]="" [closable]="true" [closeOnEscape]="true"
+    [dismissableMask]="true">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="name">{{"Name"|translate}}</label>
+                    <input type="text" class="form-control" id="name" [(ngModel)]="selectedShift.name" required>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="jbl-form-group h-100">
+                    <label for="available">{{ 'Available' | translate }}</label>
+                    <div class="form-check form-switch mt-auto">
+                        <input class="form-check-input" type="checkbox" role="switch" id="available"
+                            [(ngModel)]="selectedShift.available" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-danger"
+                        (click)="onCancelShift()">{{"Cancel"|translate}}</button>
+                    <button type="button" class="btn btn-primary ms-2"
+                        (click)="onSaveShift()">{{"Save"|translate}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</p-dialog>
+

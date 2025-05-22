@@ -1,0 +1,75 @@
+  <div class="sidenav"[ngClass]="navStatus =='Collapsed' ? 'sidenav-collapsed': ''" (mouseenter)="enter()"(mouseleave)="leave()">
+    <div class="header-container">
+      <button class="btn-pin" (click)="togglePinned()">
+        <i class="fa fa-thumbtack"[ngClass]="navStatus != 'Pinned' ? 'rotate':''"></i>
+      </button>
+      <div *ngIf="navStatus  != 'Collapsed'">
+        <h3 *ngIf="header!=''" class="header">{{header}}</h3>
+        <!-- <input type="text" placeholder="Filter" (input)="applyFilter($event)" /> -->
+      </div>
+    </div>
+    <div class="scrollwrap scrollwrap_delayed">
+      <ul class="sidenav-nav">
+          <li class="sidenav-nav-item" *ngFor="let item of filteredItems"  > <!--(click)="expandItem(item)"-->
+              <a class="sidenav-nav-link" (click)="handleClick(item)"
+                  *ngIf="item.childrens && item.childrens.length > 0"
+                  [ngClass]="getActiveClass(item)"
+              >
+                  <i class="sidenav-link-icon" [ngClass]="(item.icon != '' && item.icon != null) ? item.icon : 'fa fa-circle'"></i>
+                  <span class="sidenav-link-text" @fadeInOut *ngIf="navStatus  != 'Collapsed'">
+                      {{item.name | translate}}
+                  </span>
+                  <i *ngIf="item.childrens && navStatus != 'Collapsed'" class="menu-collapse-icon"
+                      [ngClass]="!item.expanded ? 'fa fa-angle-right' : 'fa fa-angle-down'"
+                  ></i>
+              </a>
+              <div *ngIf="(!item.childrens || (item.childrens && item.childrens.length === 0)) && !item.external; then internalItemBlock else externalItemBlock " ></div>
+              <ng-template #internalItemBlock>
+                  <a class="sidenav-nav-link"
+                      *ngIf="!item.childrens || (item.childrens && item.childrens.length === 0)"
+                      [routerLink]="[item.href]"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{exact: true}"
+                      (click)="shrinkItems(item)"
+                      >
+                      <i class="sidenav-link-icon"  [ngClass]="(item.icon != '' && item.icon != null) ? item.icon : 'fa fa-circle'"></i>
+                      <span class="sidenav-link-text" @fadeInOut *ngIf="navStatus != 'Collapsed'">
+                        {{item.name | translate}}
+                      </span>
+                  </a>
+              </ng-template>
+              <ng-template #externalItemBlock>
+                  <a class="sidenav-nav-link"
+                      *ngIf="!item.childrens || (item.childrens && item.childrens.length === 0)"
+                      [href]="item.href"
+                      target="_blank"
+                      routerLinkActive="active"
+                      [routerLinkActiveOptions]="{exact: true}"
+                      (click)="shrinkItems(item)"
+                      >
+                      <i class="sidenav-link-icon"  [ngClass]="(item.icon != '' && item.icon != null)? item.icon : ' fa fa-arrow-right'"></i>
+                      <span class="sidenav-link-text" @fadeInOut *ngIf="navStatus != 'Collapsed'">
+                        {{item.name | translate}}
+                      </span>
+                  </a>
+              </ng-template>
+              <div *ngIf="navStatus != 'Collapsed' && item.childrens && item.childrens.length > 0" >
+                  <app-sublevel-menu
+                      [item]="item"
+                      [navStatus]="navStatus"
+                      [multiple]="multiple"
+                      [expanded]="item.expanded"
+                  ></app-sublevel-menu>
+              </div>
+          </li>
+      </ul>
+
+  </div>
+  <div class="status d-flex"  >
+    <div class="badge mx-auto"@fadeInOut
+    [ngClass]="status.toLowerCase()">
+      <p *ngIf="navStatus != 'Collapsed'"  class="m-0 p-0 w-100">{{"Enviroment"|translate}}: {{status.toUpperCase()|translate}}</p>
+
+    </div>
+  </div>
+  </div>

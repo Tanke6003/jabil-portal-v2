@@ -1,0 +1,16 @@
+<!-- <ot-sidenav></ot-sidenav>
+<router-outlet></router-outlet> -->
+
+<div class="master-layout" *ngIf="menuLoaded==true;else spinner">
+  <ot-sidenav [items]="items" [expandWidth]="'17rem'" [status]="enviroment"></ot-sidenav>
+  <div class="master-layout-rigth-section">
+    <ot-header></ot-header>
+    <div class="master-layout-rigth-section-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<ng-template #spinner>
+  <app-loader></app-loader>
+</ng-template>

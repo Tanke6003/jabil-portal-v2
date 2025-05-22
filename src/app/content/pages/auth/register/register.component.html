@@ -1,0 +1,58 @@
+<p-toast></p-toast>
+<form [formGroup]="registerForm">
+  <div class="login-container align-items-center">
+    <div class="modal-dialog modal-dialog-centered site-controls-shadow">
+      <div class="modal-content bg-white">
+        <div class="modal-body p-5">
+          <span class="jb-text-md d-block mb-4">{{"Register"|translate}}</span>
+          
+          <div class="row">
+            <div class="col-12">
+              <label class="jb-text-sm" for="fullName">{{"FullName"|translate}}</label>
+              <input type="text" class="form-control" id="fullName" placeholder="Enter full name"
+                     formControlName="fullName">
+            </div>
+          </div>
+          
+          <div class="row mt-3">
+            <div class="col-12">
+              <label class="jb-text-sm" for="email">{{"Email"|translate}}</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter email"
+                     formControlName="email">
+            </div>
+          </div>
+          
+          <div class="row mt-3">
+            <div class="col-12">
+              <label class="jb-text-sm" for="password">{{"Password"|translate}}</label>
+              <input type="password" class="form-control" id="password" placeholder="Enter password"
+                     formControlName="password">
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-12 d-grid gap-2 d-md-flex justify-content-md-between mt-4">
+              <button type="button" class="btn btn-primary" (click)="register()">
+                {{"SignUp"|translate}}
+              </button>
+              <button type="button" class="btn btn-outline-secondary" (click)="goToLogin()">
+                {{"BackToLogin"|translate}}
+              </button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="special--login-footer no-text-selection">
+    <div class="d-flex justify-content-between">
+      <span class="jb-text-sm text-white">© Jabil Inc. 2023. All rights reserved.</span>
+    </div>
+  </div>
+</form>
+
+<ng-template #spinner>
+  <app-loader></app-loader>
+</ng-template>

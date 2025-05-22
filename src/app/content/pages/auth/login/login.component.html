@@ -1,0 +1,61 @@
+<p-toast></p-toast>
+<form [formGroup]="loginForm" >
+  <div class="login-container align-items-center">
+    <div class="modal-dialog modal-dialog-centered site-controls-shadow">
+      <div class="modal-content bg-white">
+        <div class="modal-body p-5">
+          <span class="jb-text-md d-block mb-4">{{"Login"|translate}}</span>
+          <div class="row">
+            <div class="col-12">
+              <label class="jb-text-sm" for="email">{{"Email"|translate}}</label>
+              <input type="email" class="form-control" id="email" placeholder="Enter email"
+                formControlName="email">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <label class="jb-text-sm" for="password">{{"Password"|translate}}</label>
+              <input type="password" class="form-control" id="password" placeholder="Enter password"
+                formControlName="password">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 d-grid gap-2 d-md-flex justify-content-md-between mt-4">
+              <button type="button" class="btn btn-primary" [ngClass]="{'btn-block': !CanLoginAsGuest}"
+                (click)="login()">{{"SignIn"|translate}}</button>
+               <button type="button" class="btn btn-outline-secondary" (click)="goToRegister()">
+                {{"GoToRegister"|translate}}
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="special--login-header no-text-selection">
+    <div class="d-flex justify-content-between">
+      <div class="d-block">
+        <img src="assets/img/Jabil_Logo.png" alt="Logo de la empresa" class="logo m-1">
+        <span id="lblAppTitle" class="btn btn-outline-primary pl-3 pr-3 m-1">{{ title|translate }}</span>
+        <span id="lblAppVersion" class="btn btn-outline-primary pl-3 pr-3 m-1">{{version}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="special--login-footer no-text-selection">
+    <div class="d-flex justify-content-between">
+      <div class="support-version">
+        <div class="support-info">
+          <p class="jb-text-sm text-white m-0">Support: </p>
+          <a class="jb-text-sm text-info" [href]="'mailto:'+supportEmail">Software Developer Team</a>
+        </div>
+      </div>
+      <span id="lblAppCopyght" class="jb-text-sm text-white">© Jabil Inc. 2023. All rights reserved. - Engineering Software Development Group.</span>
+    </div>
+  </div>
+</form>
+<ng-template #spinner>
+  <app-loader></app-loader>
+</ng-template>
